@@ -73,21 +73,6 @@
             font-size: 1.2rem;
             padding: 5px 10px;
         }
-        .save-container {
-            margin-top: 20px;
-        }
-        .saved-amount-container {
-            margin-top: 20px;
-        }
-        .links {
-            margin-top: 20px;
-            font-size: 1.2rem;
-        }
-        .links a {
-            color: #ff0;
-            text-decoration: underline;
-            margin: 0 15px;
-        }
         .keyboard {
             display: flex;
             justify-content: center;
@@ -133,19 +118,10 @@
             <button onclick="addAmount()">금액 추가</button>
             <button onclick="resetAmount()">소유 금액 초기화</button>
         </div>
-        <div class="save-container">
-            <button onclick="saveAmount()">소유 금액 저장</button>
-            <p id="saveMessage"></p>
-        </div>
-        <div class="saved-amount-container">
-            <input type="number" id="retrieveInput" placeholder="2자리 코드 입력" />
-            <button onclick="retrieveAmount()">저장 금액 불러오기</button>
-            <p id="retrievedAmount"></p>
-        </div>
         <div class="timer" id="timer"></div>
         <div class="links">
-            <a href="https://www.youtube.com/watch?v=T6axDYPRXn4" target="_blank">YouTube 리뷰</a>
             <a href="https://www.razer.com/kr-kr/gaming-keyboards/Razer-BlackWidow-V4-X/RZ03-04701500-R3K1" target="_blank">레이저 키보드 구매</a>
+            <a href="https://www.youtube.com/watch?v=T6axDYPRXn4" target="_blank">YouTube 리뷰</a>
         </div>
         <div class="keyboard">
             <div class="key">a</div>
@@ -160,6 +136,33 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let balance = 0;
+
+        function addAmount() {
+            const input = document.getElementById("amountInput").value;
+            if (input) {
+                balance += parseInt(input);
+                document.getElementById("balance").textContent = `소유 금액: ${balance.toLocaleString()}원`;
+                document.getElementById("amountInput").value = "";
+            }
+        }
+
+        function resetAmount() {
+            balance = 0;
+            document.getElementById("balance").textContent = `소유 금액: ${balance.toLocaleString()}원`;
+        }
+
+        function startTimer() {
+            const timerElement = document.getElementById("timer");
+            setInterval(() => {
+                const now = new Date();
+                const formattedDate = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
+                timerElement.textContent = `현재 날짜: ${formattedDate}`;
+            }, 1000);
+        }
+
+        startTimer();
+    </script>
 </body>
 </html>
